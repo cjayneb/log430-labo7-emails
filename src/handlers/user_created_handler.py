@@ -9,6 +9,11 @@ from pathlib import Path
 from handlers.base import EventHandler
 from typing import Dict, Any
 
+message_options = {
+    1: "Merci d'avoir visité notre magazin. Si vous avez des questions ou des problèmes concernant votre achat, n'hésitez pas à nous contacter.",
+    2: "Salut et bienvenue dans l'équipe!",
+    3: "Salut et bienvenue dans l'équipe!"
+}
 
 class UserCreatedHandler(EventHandler):
     """Handles UserCreated events"""
@@ -28,7 +33,10 @@ class UserCreatedHandler(EventHandler):
         user_id = event_data.get('id')
         name = event_data.get('name')
         email = event_data.get('email')
+        user_type_id = event_data.get('user_type_id')
         datetime = event_data.get('datetime')
+
+        message = message_options.get(user_type_id)
 
         current_file = Path(__file__)
         project_root = current_file.parent.parent   
@@ -37,6 +45,7 @@ class UserCreatedHandler(EventHandler):
             html_content = html_content.replace("{{user_id}}", str(user_id))
             html_content = html_content.replace("{{name}}", name)
             html_content = html_content.replace("{{email}}", email)
+            html_content = html_content.replace("{{message}}", message)
             html_content = html_content.replace("{{creation_date}}", datetime)
         
         filename = os.path.join(self.output_dir, f"welcome_{user_id}.html")

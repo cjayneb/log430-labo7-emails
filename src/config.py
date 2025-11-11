@@ -14,12 +14,13 @@ load_dotenv()
 KAFKA_HOST = os.getenv("KAFKA_HOST")
 KAFKA_TOPIC = os.getenv("KAFKA_TOPIC")
 KAFKA_GROUP_ID = os.getenv("KAFKA_GROUP_ID")
+KAFKA_HIST_GROUP_ID = os.getenv("KAFKA_HIST_GROUP_ID")
 KAFKA_AUTO_OFFSET_RESET = os.getenv("KAFKA_AUTO_OFFSET_RESET")
 
 # Coolriel Configuration
 OUTPUT_DIR = os.getenv("OUTPUT_DIR")
 LOG_LEVEL = os.getenv("LOG_LEVEL")
 
-for env_variable in ["KAFKA_HOST", "KAFKA_TOPIC", "KAFKA_GROUP_ID", "KAFKA_AUTO_OFFSET_RESET", "OUTPUT_DIR", "LOG_LEVEL"]:
+for env_variable in ["KAFKA_HOST", "KAFKA_TOPIC", "KAFKA_GROUP_ID", "KAFKA_HIST_GROUP_ID", "KAFKA_AUTO_OFFSET_RESET", "OUTPUT_DIR", "LOG_LEVEL"]:
     if globals()[env_variable] is None:
         raise EnvironmentError(f"Variable {env_variable} n'était pas trouvé dans votre fichier .env.")
